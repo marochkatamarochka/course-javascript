@@ -98,9 +98,7 @@
           fn(arg);
         } catch (e) {
           badArgs.push(arg);
-          continue;
         }
-        return [];
       }
       return badArgs;
     }
@@ -158,4 +156,4 @@
 
 /* При решении задач, постарайтесь использовать отладчик */
 
-//export { isAllTrue, isSomeTrue, returnBadArguments, calculator };
+export { isAllTrue, isSomeTrue, returnBadArguments, calculator };
