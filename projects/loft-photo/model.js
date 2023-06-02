@@ -41,15 +41,16 @@ export default {
   async init() {
     this.photoCache = {};
     this.friends = await this.getFriends();
+    [this.me] = await this.getUsers();
   },
 
 login() {
   return new Promise((resolve, reject) => {
-    VideoPlaybackQuality.init({
+    VK.init({
       aplid: APP_ID,
     });
 
-    VideoPlaybackQuality.Auth.login((Response) => {
+    VK.Auth.login((Response) => {
       if (Response.session) {
         resolve(Response);
       } else {
@@ -100,4 +101,19 @@ getPhotos(owner) {
 
     return photos
   },
+
+  logout() {
+    return new Promise((resolve) => VK.Auth.revokeGrants(resolve));
+  },
+
+getUsers(ids) {
+  const params = {
+    friends: ['photo_50', 'photo_100'],
+  };
+  if (ids) {
+    params.user_ids = ids;
+  }
+  return this.callApi('users.get', params);
+},
 };
+
